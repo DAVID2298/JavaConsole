@@ -1,4 +1,7 @@
 package it.contrader.model;
+
+import java.util.List;
+
 /**
  * Per dettagli vedi guida sez 4 Model
  */
@@ -14,6 +17,8 @@ public class User {
 	private String password;
 	
 	private String usertype;
+
+//	private List<Appointment> appointments;
 
 	/**
 	 * Definisco i due costruttori, uno vuoto e uno con tre parametri per costrire oggetti di tipo User
