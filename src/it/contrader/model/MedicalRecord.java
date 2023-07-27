@@ -7,25 +7,26 @@ public class MedicalRecord {
 
     private long id;
 
-    private Date date;
+    private String date;
 
-    private TimeZone hours;
+    private String hours;
 
     private String medicalCheck;
 
     private String description;
 
-    private long
+    private long id_anagraphic;
 
-    public MedicalRecord(long id, Date date, TimeZone hours, String medicalCheck, String description) {
+    public MedicalRecord(long id, String date, String hours, String medicalCheck, String description,long id_anagraphic) {
         this.id = id;
         this.date = date;
         this.hours = hours;
         this.medicalCheck = medicalCheck;
         this.description = description;
+        this.id_anagraphic=id_anagraphic;
     }
 
-    public MedicalRecord(Date date, TimeZone hours, String medicalCheck, String description) {
+    public MedicalRecord(String date, String hours, String medicalCheck, String description) {
         this.date = date;
         this.hours = hours;
         this.medicalCheck = medicalCheck;
@@ -44,19 +45,19 @@ public class MedicalRecord {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public TimeZone getHours() {
+    public String getHours() {
         return hours;
     }
 
-    public void setHours(TimeZone hours) {
+    public void setHours(String hours) {
         this.hours = hours;
     }
 
@@ -74,6 +75,16 @@ public class MedicalRecord {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public long getId_anagraphic() {
+        return id_anagraphic;
+    }
+
+
+    public void setId_anagraphic(long id_anagraphic) {
+        this.id_anagraphic = id_anagraphic;
+
     }
 
     @Override

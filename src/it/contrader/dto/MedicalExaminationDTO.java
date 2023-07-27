@@ -1,9 +1,8 @@
-package it.contrader.model;
+package it.contrader.dto;
 
-import java.util.List;
 import java.util.TimeZone;
 
-public class MedicalExamination {
+public class MedicalExaminationDTO {
 
     private long id;
 
@@ -19,8 +18,27 @@ public class MedicalExamination {
 
     private String img;
 
-//    private List<Appointment> appointments;
+    public MedicalExaminationDTO(long id, String name, String typology, double cost, long code, String hours, String img) {
+        this.id = id;
+        this.name = name;
+        this.typology = typology;
+        this.cost = cost;
+        this.code = code;
+        this.hours = hours;
+        this.img = img;
+    }
 
+    public MedicalExaminationDTO(String name, String typology, double cost, long code, String hours, String img) {
+        this.name = name;
+        this.typology = typology;
+        this.cost = cost;
+        this.code = code;
+        this.hours = hours;
+        this.img = img;
+    }
+
+    public MedicalExaminationDTO() {
+    }
 
     public long getId() {
         return id;
@@ -76,27 +94,5 @@ public class MedicalExamination {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public MedicalExamination(String name, String typology, double cost, long code, String hours, String img) {
-        this.name = name;
-        this.typology = typology;
-        this.cost = cost;
-        this.code = code;
-        this.hours = hours;
-        this.img = img;
-    }
-
-    public MedicalExamination(long id, String name, String typology, double cost, long code, String hours, String img) {
-        this.id = id;
-        this.name = name;
-        this.typology = typology;
-        this.cost = cost;
-        this.code = code;
-        this.hours = hours;
-        this.img = img;
-    }
-
-    public MedicalExamination() {
     }
 }

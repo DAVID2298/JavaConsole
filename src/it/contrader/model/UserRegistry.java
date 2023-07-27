@@ -12,20 +12,20 @@ public class UserRegistry {
 
     private String surname;
 
-    private Date birthDate;
+    private String birthDate;
 
-    private long userId;
+    private long user_id;
 
-    public UserRegistry(long id, String name, String address, String surname, Date birthDate, long userId) {
+    public UserRegistry(long id, String name, String address, String surname, String birthDate, long user_id) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.surname = surname;
         this.birthDate = birthDate;
-        this.userId = userId;
+        this.user_id = user_id;
     }
 
-    public UserRegistry(String name, String address, String surname, Date birthDate) {
+    public UserRegistry(String name, String address, String surname, String birthDate) {
         this.name = name;
         this.address = address;
         this.surname = surname;
@@ -67,19 +67,19 @@ public class UserRegistry {
         this.surname = surname;
     }
 
-    public Date getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
     public long getUserId() {
-        return userId;
+        return user_id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUserId(long user_id) {
+        this.user_id = user_id;
     }
 }

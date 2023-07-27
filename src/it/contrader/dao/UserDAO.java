@@ -48,7 +48,8 @@ public class UserDAO {
 
 	public boolean insert(User userToInsert) {
 		Connection connection = ConnectionSingleton.getInstance();
-		try {	
+		try {
+
 			PreparedStatement preparedStatement = connection.prepareStatement(QUERY_CREATE);
 			preparedStatement.setString(1, userToInsert.getUsername());
 			preparedStatement.setString(2, userToInsert.getPassword());

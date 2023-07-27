@@ -1,9 +1,11 @@
-package it.contrader.model;
+package it.contrader.dto;
+
+import it.contrader.model.MedicalExamination;
 
 import java.util.Date;
 import java.util.TimeZone;
 
-public class Appointment {
+public class AppointmentDTO {
 
     private long id;
 
@@ -16,7 +18,7 @@ public class Appointment {
     private long user_id;
     private long medical_booking_id;
 
-    public Appointment(long id, String date, String hour, double cost, long user_id, long medical_booking_id) {
+    public AppointmentDTO(long id, String date, String hour, double cost, long user_id, long medical_booking_id) {
         this.id = id;
         this.date = date;
         this.hour = hour;
@@ -25,14 +27,14 @@ public class Appointment {
         this.medical_booking_id = medical_booking_id;
     }
 
-    public Appointment(String date, String hour, double cost, long medical_booking_id) {
+    public AppointmentDTO(String date, String hour, double cost, long medical_booking_id) {
         this.date = date;
         this.hour = hour;
         this.cost = cost;
         this.medical_booking_id = medical_booking_id;
     }
 
-    public Appointment() {
+    public AppointmentDTO() {
     }
 
     public long getId() {
@@ -83,25 +85,3 @@ public class Appointment {
         this.medical_booking_id = medical_booking_id;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

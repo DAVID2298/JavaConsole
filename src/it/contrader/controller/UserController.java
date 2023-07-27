@@ -2,8 +2,10 @@ package it.contrader.controller;
 
 import java.util.List;
 
+import it.contrader.dto.MedicalExaminationDTO;
 import it.contrader.dto.UserDTO;
 import it.contrader.main.MainDispatcher;
+import it.contrader.service.HospitalRegistryService;
 import it.contrader.service.UserService;
 
 /**
@@ -17,24 +19,29 @@ public class UserController implements Controller {
 	/**
 	 * definisce il pacchetto di vista user.
 	 */
-	private static String sub_package = "user.";
+	private static String sub_package = "userRegistry.";
+
+
+
 	
 	private UserService userService;
+	private HospitalRegistryService hospitalRegistryService;
 	/**
 	 * Costruisce un oggetto di tipo UserService per poterne usare i metodi
 	 */
 	public UserController() {
 		this.userService = new UserService();
+		this.hospitalRegistryService= new HospitalRegistryService();
 	}
 	
 	
 	
 	/**
 	 * Metodo dell'interfaccia Controller. Estrae dalla request la mode
-	 * (che riceve dalle view specifiche e può essere la richesta di una 
+	 * (che riceve dalle view specifiche e puï¿½ essere la richesta di una 
 	 * scelta da parte dell'utente "GETCHOICE") e la scelta dell'utente.
 	 * 
-	 * Se la modalità corrisponde ad una CRUD il controller chiama i service,
+	 * Se la modalitï¿½ corrisponde ad una CRUD il controller chiama i service,
 	 * altrimenti rimanda alla View della CRUD per richiedere i parametri
 	 */
 	@Override
@@ -50,6 +57,8 @@ public class UserController implements Controller {
 		String username;
 		String password;
 		String usertype;
+
+
 
 		switch (mode) {
 		
@@ -100,6 +109,21 @@ public class UserController implements Controller {
 			request.put("mode", "mode");
 			MainDispatcher.getInstance().callView(sub_package + "UserUpdate", request);
 			break;
+
+			case "PRODOTTO":
+				long idProdotto = Long.parseLong(request.get("id").toString());
+				String name = request.get("nome").toString();
+				String typology = request.get("tipologia").toString();
+				double cost = Double.parseDouble(request.get("costo").toString());
+				long code = Long.parseLong(request.get("codice").toString());
+				String hours = request.get("orari").toString();
+				String img = request.get("img").toString();
+				MedicalExaminationDTO medicalExaminationDTO = new MedicalExaminationDTO(idProdotto,name,typology,cost,code,hours,img);
+				hospitalRegistryService.insert(medicalExaminationDTO);
+				request = new Request();
+				request.put("mode", "mode");
+				MainDispatcher.getInstance().callView(sub_package + "UserUpdate", request);
+				break;
 			
 		//Arriva qui dalla UserView Invoca il Service e invia alla UserView il risultato da mostrare 
 		case "USERLIST":
@@ -139,7 +163,11 @@ public class UserController implements Controller {
 			case "B":
 				MainDispatcher.getInstance().callView("HomeAdmin", null);
 				break;
-				
+
+			case "X":
+				MainDispatcher.getInstance().callView(sub_package + "UserRegistry",null);
+				break;
+
 			default:
 				MainDispatcher.getInstance().callView("Login", null);
 			}

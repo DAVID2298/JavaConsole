@@ -42,12 +42,12 @@ public class UserView extends AbstractView {
 
 	/**
 	 * Chiede all'utente un input (lettera da tastiera) per la choice (vedi UserController). 
-	 * Mette la modalità GETCHOICE nella mode.
+	 * Mette la modalitï¿½ GETCHOICE nella mode.
 	 */
 	@Override
 	public void showOptions() {
 		System.out.println("          Scegli l'operazione da effettuare:");
-		System.out.println("[L]eggi [I]nserisci [M]odifica [C]ancella [B]ack [E]sci");
+		System.out.println("[L]eggi [I]nserisci [M]odifica [C]ancella [B]ack [X]Dati_anagrafici [E]sci");
 
 		this.choice = getInput();
 

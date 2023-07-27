@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import it.contrader.main.ConnectionSingleton;
+import it.contrader.main.UserSingleton;
+import it.contrader.model.User;
 
 /**
  * 
@@ -35,6 +37,8 @@ public class LoginDAO {
 				resultSet = statement.executeQuery();
 				resultSet.next();
 				usertype = resultSet.getString("usertype");
+				User loggedInUser = new User(username,password,usertype);
+				UserSingleton.getInstance().setUserLogged(loggedInUser);
 			}
 
 			return usertype;
