@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentDAO {
+
     private final String QUERY_ALL = "SELECT * FROM prenotazione";
     private final String QUERY_CREATE = "INSERT INTO prenotazione (id_prenotazione, data, orario,costo,id_user,id_visita)"
             + " VALUES (?,?,?,?.?.?)";
@@ -148,5 +149,4 @@ public class AppointmentDAO {
         }
         return false;
     }
-
 }

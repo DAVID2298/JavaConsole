@@ -4,7 +4,6 @@ import java.util.List;
 
 import it.contrader.dto.MedicalExaminationDTO;
 import it.contrader.dto.UserDTO;
-import it.contrader.dto.UserRegistryDTO;
 import it.contrader.main.MainDispatcher;
 import it.contrader.service.HospitalRegistryService;
 import it.contrader.service.UserService;
@@ -20,10 +19,7 @@ public class UserController implements Controller {
 	/**
 	 * definisce il pacchetto di vista user.
 	 */
-	private static String sub_package = "user.";
-	private static String sub_p = "userRegistry.";
-	private static String sub_pa = "hospitalRegistry.";
-
+	private static String sub_package = "userRegistry.";
 
 
 
@@ -73,9 +69,7 @@ public class UserController implements Controller {
 			request.put("user", userDTO);
 			MainDispatcher.getInstance().callView(sub_package + "UserRead", request);
 			break;
-
-
-
+		
 		// Arriva qui dalla UserInsertView. Estrae i parametri da inserire e chiama il service per inserire uno user con questi parametri
 		case "INSERT":
 			username = request.get("username").toString();
@@ -116,28 +110,21 @@ public class UserController implements Controller {
 			MainDispatcher.getInstance().callView(sub_package + "UserUpdate", request);
 			break;
 
-		case "PRODOTTO":
-			long idProdotto = Long.parseLong(request.get("id").toString());
-			String name = request.get("nome").toString();
-			String typology = request.get("tipologia").toString();
-			double cost = Double.parseDouble(request.get("costo").toString());
-			long code = Long.parseLong(request.get("codice").toString());
-			String hours = request.get("orari").toString();
-			String img = request.get("img").toString();
-			MedicalExaminationDTO medicalExaminationDTO = new MedicalExaminationDTO(idProdotto,name,typology,cost,code,hours,img);
+//			case "PRODOTTO":
+//				long idProdotto = Long.parseLong(request.get("id").toString());
+//				String name = request.get("nome").toString();
+//				String typology = request.get("tipologia").toString();
+//				double cost = Double.parseDouble(request.get("costo").toString());
+//				long code = Long.parseLong(request.get("codice").toString());
+//				String hours = request.get("orari").toString();
+//				String img = request.get("img").toString();
+//				MedicalExaminationDTO medicalExaminationDTO = new MedicalExaminationDTO(idProdotto,name,typology,cost,code,hours,img);
 //				hospitalRegistryService.insert(medicalExaminationDTO);
-			request = new Request();
-			request.put("mode", "mode");
-			MainDispatcher.getInstance().callView(sub_package + "UserUpdate", request);
-			break;
-//
-//		case "HOSPITALREGISTRY":
-//			List<UserRegistryDTO> userRegistryDTOS = hospitalRegistryService.getAll();
-//			//Impacchetta la request con la lista degli user
-//			request.put("datianagrafici", userRegistryDTOS);
-//			MainDispatcher.getInstance().callView("User", request);
-//			break;
-//
+//				request = new Request();
+//				request.put("mode", "mode");
+//				MainDispatcher.getInstance().callView(sub_package + "UserUpdate", request);
+//				break;
+			
 		//Arriva qui dalla UserView Invoca il Service e invia alla UserView il risultato da mostrare 
 		case "USERLIST":
 			List<UserDTO> usersDTO = userService.getAll();
@@ -145,8 +132,6 @@ public class UserController implements Controller {
 			request.put("users", usersDTO);
 			MainDispatcher.getInstance().callView("User", request);
 			break;
-
-
 			
 		//Esegue uno switch sulla base del comando inserito dall'utente e reindirizza tramite il Dispatcher alla View specifica per ogni operazione
 		//con REQUEST NULL (vedi una View specifica)
@@ -180,15 +165,8 @@ public class UserController implements Controller {
 				break;
 
 			case "X":
-				MainDispatcher.getInstance().callView(sub_p + "UserRegistryInsert",null);
+				MainDispatcher.getInstance().callView(sub_package + "UserRegistry",null);
 				break;
-
-			case "A":
-				MainDispatcher.getInstance().callView(sub_pa + "HospitalRegistryInsert",null);
-				break;
-
-
-
 
 			default:
 				MainDispatcher.getInstance().callView("Login", null);

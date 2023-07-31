@@ -52,20 +52,20 @@ public class MedicalExaminationController implements Controller{
 
         switch (mode) {
 
-            case "INSERT":
-                id = Long.parseLong(request.get("id").toString());
-                name = request.get("name").toString();
-                typology = request.get("typology").toString();
-                cost = Double.parseDouble(request.get("cost").toString());
-                code = Long.parseLong(request.get("code").toString());
-                hours = request.get("hours").toString();
-                img = request.get("img").toString();
-                MedicalExaminationDTO medicalExaminationDTO = new MedicalExaminationDTO(id,name,typology,cost,code,hours,img);
+//            case "INSERT":
+//                id = Long.parseLong(request.get("id").toString());
+//                name = request.get("name").toString();
+//                typology = request.get("typology").toString();
+//                cost = Double.parseDouble(request.get("cost").toString());
+//                code = Long.parseLong(request.get("code").toString());
+//                hours = request.get("hours").toString();
+//                img = request.get("img").toString();
+//                MedicalExaminationDTO medicalExaminationDTO = new MedicalExaminationDTO(id,name,typology,cost,code,hours,img);
 //                hospitalRegistryService.insert(medicalExaminationDTO);
-                request = new Request();
-                request.put("mode", "mode");
-                MainDispatcher.getInstance().callView(sub_package + "MedicalExaminationView", request);
-                break;
+//                request = new Request();
+//                request.put("mode", "mode");
+//                MainDispatcher.getInstance().callView(sub_package + "MedicalExaminationView", request);
+//                break;
 
             case "READ":
 

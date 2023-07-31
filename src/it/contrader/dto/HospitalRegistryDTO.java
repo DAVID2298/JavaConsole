@@ -27,6 +27,7 @@ public class HospitalRegistryDTO {
         this.city = city;
         this.description = description;
         this.user_id = user_id;
+
     }
 
     public HospitalRegistryDTO(String name, String address, String nation, String province, String city, String description,long user_id) {
@@ -36,12 +37,14 @@ public class HospitalRegistryDTO {
         this.province = province;
         this.city = city;
         this.description = description;
-        this.user_id= user_id;
+        this.user_id=user_id;
     }
 
     public HospitalRegistryDTO() {
 
     }
+
+
 
     public long getId() {
         return id;
