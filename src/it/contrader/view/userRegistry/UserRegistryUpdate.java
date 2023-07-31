@@ -23,7 +23,7 @@ public class UserRegistryUpdate extends AbstractView {
     public void showResults(Request request) {
         if (request!=null) {
             System.out.println("Modifica andata a buon fine.\n");
-            MainDispatcher.getInstance().callView("DatiAnagrafici", null);
+            MainDispatcher.getInstance().callView("HomeUser", null);
 
         }
 
