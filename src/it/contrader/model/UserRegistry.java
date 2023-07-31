@@ -82,4 +82,16 @@ public class UserRegistry {
     public void setUserId(long user_id) {
         this.user_id = user_id;
     }
+
+    @Override
+    public String toString() {
+        return "UserRegistry{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", user_id=" + user_id +
+                '}';
+    }
 }

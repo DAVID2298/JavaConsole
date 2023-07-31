@@ -25,11 +25,12 @@ public class UserRegistryDTO {
         this.user_id = user_id;
     }
 
-    public UserRegistryDTO(String name, String address, String surname, String birthDate) {
+    public UserRegistryDTO(String name, String address, String surname, String birthDate,long user_id) {
         this.name = name;
         this.address = address;
         this.surname = surname;
         this.birthDate = birthDate;
+        this.user_id=user_id;
     }
 
     public UserRegistryDTO() {
@@ -81,5 +82,17 @@ public class UserRegistryDTO {
 
     public void setUserId(long user_id) {
         this.user_id = user_id;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRegistryDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", user_id=" + user_id +
+                '}';
     }
 }

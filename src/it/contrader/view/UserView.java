@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.contrader.controller.Request;
 import it.contrader.dto.UserDTO;
+import it.contrader.dto.UserRegistryDTO;
 import it.contrader.main.MainDispatcher;
 
 
@@ -37,6 +38,10 @@ public class UserView extends AbstractView {
 			for (UserDTO u: users)
 				System.out.println(u);
 			System.out.println();
+
+
+
+
 		}
 	}
 
@@ -47,7 +52,7 @@ public class UserView extends AbstractView {
 	@Override
 	public void showOptions() {
 		System.out.println("          Scegli l'operazione da effettuare:");
-		System.out.println("[L]eggi [I]nserisci [M]odifica [C]ancella [B]ack [X]Dati_anagrafici [E]sci");
+		System.out.println("[L]eggi [I]nserisci [M]odifica [C]ancella [B]ack [X]Dati_anagrafici [A] [E]sci");
 
 		this.choice = getInput();
 

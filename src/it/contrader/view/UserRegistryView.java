@@ -17,7 +17,7 @@ public class UserRegistryView extends AbstractView{
     public void showResults(Request request) {
         if (request != null){
             System.out.println("\n------------------- Profilo utente ----------------\n");
-            System.out.println("Nome\tCognome\tIndirizzo\tData di nascita\tNazionalità");
+            System.out.println("Nome\tCognome\tIndirizzo\tData di nascita\t");
             System.out.println("----------------------------------------------------\n");
             @SuppressWarnings("unchecked")
             List<UserRegistryDTO> userRegistryS =(List<UserRegistryDTO>) request.get("userRegistryS");
@@ -47,7 +47,7 @@ public class UserRegistryView extends AbstractView{
         request = new Request();
         request.put("choice", choice);
         request.put("mode", "GETCHOICE");
-        MainDispatcher.getInstance().callAction("DatiAnagrafici", "doControl", this.request);
+        MainDispatcher.getInstance().callAction("UserRegistry", "doControl", request);
 
 
 

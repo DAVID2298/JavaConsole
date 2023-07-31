@@ -11,12 +11,9 @@ package it.contrader.main;
 public class Application {
 
     public static void main(String[] args) {
-        MainDispatcher.getInstance().callAction("Login", "doControl", null);
+        MainDispatcher.getInstance().callAction("Landing", "doControl", null);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 342699fe6a333d7739bc14a6d93217b8256a290e
     }
 
 }

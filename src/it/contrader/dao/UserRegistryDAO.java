@@ -10,9 +10,9 @@ import java.util.List;
 public class UserRegistryDAO {
 
     private final String QUERY_ALL= "SELECT * FROM user_anagrafico";
-    private final String QUERY_CREATE= "INSERT INTO user_anagrafico (id,nome, cognome, indirizzo, data_di_nascita) VALUES (?,?,?,?,?)";
+    private final String QUERY_CREATE= "INSERT INTO user_anagrafico (nome, cognome, indirizzo, data_di_nascita,user_id) VALUES (?,?,?,?,?)";
     private final String QUERY_READ= "SELECT * FROM user_anagrafico WHERE user_id=?";
-    private final String QUERY_UPDATE= "UPDATE user_anagrafico SET nome=?, cognome=?, indirizzo=?, data_di_nascita=?";
+    private final String QUERY_UPDATE= "UPDATE user_anagrafico SET nome=?, cognome=?, indirizzo=?, data_di_nascita=? WHERE User_id=?";
     private final String QUERY_DELETE= "DELETE from user WHERE id=?";
 
     public UserRegistryDAO() {
@@ -77,10 +77,11 @@ public class UserRegistryDAO {
             name= resultSet.getString("nome");
             surname= resultSet.getString("cognome");
             address= resultSet.getString("indirizzo");
-            date_of_birth=resultSet.getString("data_di_nascita");
-            userId=resultSet.getInt("user_id");
+            date_of_birth=resultSet.getString("Data_Di_Nascita");
+            userId=resultSet.getInt("User_Id");
             UserRegistry userRegistry= new UserRegistry(name,surname,address,date_of_birth);
-            userRegistry.setId(resultSet.getInt("id"));
+            userRegistry.setId(resultSet.getInt("id_anagrafica"));
+            userRegistry.setUserId(userId);
             return userRegistry;
 
         }catch (SQLException e){

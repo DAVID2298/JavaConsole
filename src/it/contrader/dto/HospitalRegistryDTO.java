@@ -29,13 +29,14 @@ public class HospitalRegistryDTO {
         this.user_id = user_id;
     }
 
-    public HospitalRegistryDTO(String name, String address, String nation, String province, String city, String description) {
+    public HospitalRegistryDTO(String name, String address, String nation, String province, String city, String description,long user_id) {
         this.name = name;
         this.address = address;
         this.nation = nation;
         this.province = province;
         this.city = city;
         this.description = description;
+        this.user_id= user_id;
     }
 
     public HospitalRegistryDTO() {

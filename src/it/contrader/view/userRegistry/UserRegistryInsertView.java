@@ -28,17 +28,18 @@ public class UserRegistryInsertView extends AbstractView {
                 MainDispatcher.getInstance().callView("Login", null);
 
             } else {
-                MainDispatcher.getInstance().callView("HomeAdmin", null);
+                MainDispatcher.getInstance().callView("HomeUser", null);
 
             }
 
 
-        }
 
+        }
     }
 
     @Override
     public void showOptions() {
+        System.out.println("sono qui");
         System.out.println("Inserisci nome dell'utente:");
         name = getInput();
         System.out.println("Inserisci cognome dell'utente:");
@@ -49,20 +50,21 @@ public class UserRegistryInsertView extends AbstractView {
         dateBirthday = getInput();
         System.out.println("Inserisci l'Id dell'utente");
         userId= Integer.parseInt(getInput());
+        System.out.println();
 
     }
 
     @Override
     public void submit() {
         request = new Request();
-        request.put("nome", name);
-        request.put("cognome", surname);
-        request.put("indirizzo", address);
-        request.put("dataNascita", dateBirthday);
+        request.put("name", name);
+        request.put("surname", surname);
+        request.put("address", address);
+        request.put("dateBirthday", dateBirthday);
         request.put("userId",userId);
         request.put("mode",mode);
         request.put("register", "false");
-        MainDispatcher.getInstance().callAction("MedicalExamination", "doControl", request);
+        MainDispatcher.getInstance().callAction("UserRegistry", "doControl", request);
 
     }
 

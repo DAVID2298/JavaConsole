@@ -17,9 +17,9 @@ public class UserRegistryReadView extends AbstractView {
     @Override
     public void showResults(Request request) {
         if (request!=null){
-            UserRegistryDTO userRegistryDTO=(UserRegistryDTO) request.get("user_anagrafico");
+            UserRegistryDTO userRegistryDTO=(UserRegistryDTO) request.get("userRegistry");
             System.out.println(userRegistryDTO);
-            MainDispatcher.getInstance().callView("user_anagrafico",null);
+            MainDispatcher.getInstance().callView("UserRegistry",null);
         }
 
     }

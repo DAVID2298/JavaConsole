@@ -38,12 +38,12 @@ public class HospitalRegistryService {
 
     public List<UserRegistryDTO> getAll() {
 
-        List<User> userList=userDAO.getAll();
-        for(User user: userList){
-            if(user.getUsertype()!="ADMIN"){
-                 return new ArrayList<>();
-            }
-        }
+//        List<User> userList=userDAO.getAll();
+//        for(User user: userList){
+//            if(user.getUsertype()!="ADMIN"){
+//                 return new ArrayList<>();
+//            }
+//        }
 
         // Ottiene una lista di entit� e le restituisce convertendole in DTO
         return userRegistryConverter.toDTOList(hospitalRegistryDAO.getAll());
@@ -54,9 +54,14 @@ public class HospitalRegistryService {
         return hospitalRegistryDAO.delete(id);
     }
 
-    public void insert(MedicalExaminationDTO dto){
+    public void insertMedicalEximination(MedicalExaminationDTO dto){
 //        userDAO.read(UserSingleton.getInstance().getId());
-        hospitalRegistryDAO.insert(medicalExaminationConverter.toEntity(dto));
+        hospitalRegistryDAO.insertMedicalExamination(medicalExaminationConverter.toEntity(dto));
 
+    }
+
+    public boolean insert(HospitalRegistryDTO dto) {
+        // Converte un DTO in entità e lo passa al DAO per l'inserimento
+        return hospitalRegistryDAO.insert(hospitalRegistryConverter.toEntity(dto));
     }
 }

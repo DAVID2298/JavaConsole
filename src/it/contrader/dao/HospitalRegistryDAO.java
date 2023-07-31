@@ -54,7 +54,7 @@ public class HospitalRegistryDAO {
             ResultSet resultSet = statement.executeQuery(QUERY_ALL);
             User user;
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("id_anagrafica");
                 String nome = resultSet.getString("nome");
                 String cognome = resultSet.getString("cognome");
                 String indirizzo = resultSet.getString("indirizzo");
@@ -83,7 +83,7 @@ public class HospitalRegistryDAO {
         return false;
     }
 
-    public void insert(MedicalExamination medicalExamination) {
+    public void insertMedicalExamination(MedicalExamination medicalExamination) {
         Connection connection = ConnectionSingleton.getInstance();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(QUERY_INSERT);
@@ -92,7 +92,7 @@ public class HospitalRegistryDAO {
             preparedStatement.setDouble(3, medicalExamination.getCost());
             preparedStatement.setDouble(4, medicalExamination.getCode());
             preparedStatement.setString(5, medicalExamination.getHours());
-            preparedStatement.setString(5, medicalExamination.getImg());
+            preparedStatement.setString(6, medicalExamination.getImg());
             preparedStatement.execute();
 
         } catch (SQLException e) {

@@ -61,7 +61,7 @@ public class MedicalExaminationController implements Controller{
                 hours = request.get("hours").toString();
                 img = request.get("img").toString();
                 MedicalExaminationDTO medicalExaminationDTO = new MedicalExaminationDTO(id,name,typology,cost,code,hours,img);
-                hospitalRegistryService.insert(medicalExaminationDTO);
+//                hospitalRegistryService.insert(medicalExaminationDTO);
                 request = new Request();
                 request.put("mode", "mode");
                 MainDispatcher.getInstance().callView(sub_package + "MedicalExaminationView", request);

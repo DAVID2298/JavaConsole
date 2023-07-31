@@ -37,23 +37,25 @@ public class UserRegistryController implements Controller{
             userId= (int) request.get("userId");
             UserRegistryDTO datiAnagraficiDTO=userRegistryService.read(userId);
             request.put("userRegistry",datiAnagraficiDTO);
-            MainDispatcher.getInstance().callView(sub_package + "UserRegistryReadView", request);
+            MainDispatcher.getInstance().callView(sub_package + "UserRegistryRead", request);
             break;
         case "INSERT":
+            System.out.println("sono qui");
             name=request.get("name").toString();
             surname=request.get("surname").toString();
             address=request.get("address").toString();
             dateBirthday=  request.get("dateBirthday").toString();
             userId= Integer.parseInt(request.get("userId").toString());
             register=request.get("register").toString();
-            UserRegistryDTO userRegistryDTO = new UserRegistryDTO(name,surname,address,dateBirthday);
-            userRegistry.getUserId();
-            user.getId();
-            userRegistryDTO.setUserId(user.getId());
+            UserRegistryDTO userRegistryDTO = new UserRegistryDTO(name,surname,address,dateBirthday,userId);
+//            userRegistry.getUserId();
+//            user.getId();
+//            userRegistryDTO.setUserId(user.getId());
+
             userRegistryService.insert(userRegistryDTO);
             request = new Request();
             request.put("register", register);
-            MainDispatcher.getInstance().callView(sub_package + "UserRegistryView", request);
+            MainDispatcher.getInstance().callView(sub_package + "UserRegistryInsert", request);
             break;
         case "UPDATE":
             name=request.get("name").toString();
@@ -63,11 +65,11 @@ public class UserRegistryController implements Controller{
 
 
             userId= Integer.parseInt(request.get("userId").toString());
-            //register=request.get("register").toString();
+            register=request.get("register").toString();
             userRegistry.setUserId(user.getId());
 
 
-            UserRegistryDTO userRegistryUpdate =new UserRegistryDTO(name,surname,address,dateBirthday);
+            UserRegistryDTO userRegistryUpdate =new UserRegistryDTO(name,surname,address,dateBirthday,userId);
             userRegistryUpdate.setUserId(userId);
             userRegistryService.update(userRegistryUpdate);
             request = new Request();
@@ -86,7 +88,7 @@ public class UserRegistryController implements Controller{
             switch (choice.toUpperCase()) {
 
                 case "L":
-                    MainDispatcher.getInstance().callView(sub_package + "UserRegistyRead", null);
+                    MainDispatcher.getInstance().callView(sub_package + "UserRegistryRead", null);
                     break;
 
                 case "I":
@@ -103,6 +105,9 @@ public class UserRegistryController implements Controller{
 
                 case "B":
                     MainDispatcher.getInstance().callView("HomeAdmin", null);
+                    break;
+                case "X":
+                    MainDispatcher.getInstance().callView("UserRegistry", null);
                     break;
 
                 default:
