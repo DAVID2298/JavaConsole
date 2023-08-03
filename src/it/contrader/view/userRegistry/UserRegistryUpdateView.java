@@ -3,11 +3,11 @@ package it.contrader.view.userRegistry;
 import it.contrader.controller.Request;
 import it.contrader.main.MainDispatcher;
 import it.contrader.view.AbstractView;
-import it.contrader.view.View;
 
-public class UserRegistryUpdate extends AbstractView {
+public class UserRegistryUpdateView extends AbstractView {
 
     private Request request;
+    private long id;
     private String name;
     private String surname;
     private String address;
@@ -15,7 +15,7 @@ public class UserRegistryUpdate extends AbstractView {
     private long userId;
     private final String mode = "UPDATE";
 
-    UserRegistryUpdate(){
+    UserRegistryUpdateView(){
 
     }
 
@@ -23,7 +23,7 @@ public class UserRegistryUpdate extends AbstractView {
     public void showResults(Request request) {
         if (request!=null) {
             System.out.println("Modifica andata a buon fine.\n");
-            MainDispatcher.getInstance().callView("HomeUser", null);
+            MainDispatcher.getInstance().callView("UserRegistry", null);
 
         }
 
@@ -32,6 +32,8 @@ public class UserRegistryUpdate extends AbstractView {
     @Override
     public void showOptions() {
         try {
+            System.out.println("Inserisci id anagrafico:");
+            name = getInput();
             System.out.println("Inserisci nome dell'utente:");
             name = getInput();
             System.out.println("Inserisci cognome dell'utente:");
@@ -42,8 +44,8 @@ public class UserRegistryUpdate extends AbstractView {
             dateBirthday = getInput();
 
 
-            System.out.println("Inserisci l'Id dell'utente");
-            userId= Integer.parseInt(getInput());
+//            System.out.println("Inserisci l'Id dell'utente");
+//            userId= Integer.parseInt(getInput());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -53,13 +55,16 @@ public class UserRegistryUpdate extends AbstractView {
     @Override
     public void submit() {
         request = new Request();
+        request.put("id",id);
         request.put("name", name);
         request.put("surname", surname);
         request.put("address", address);
         request.put("dateBirthday", dateBirthday);
+//        request.put("user",userId);
+        request.put("mode",mode);
+        request.put("register", "false");
+        request.put("userId", userId);
 
-        request.put("user",userId);
-        request.put("register","false");
         MainDispatcher.getInstance().callAction("UserRegistry", "doControl", request);
 
     }

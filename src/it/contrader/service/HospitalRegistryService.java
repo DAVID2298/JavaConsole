@@ -36,17 +36,11 @@ public class HospitalRegistryService {
         this.userSingleton= UserSingleton.getInstance();
     }
 
-    public List<UserRegistryDTO> getAll() {
+    public List<HospitalRegistryDTO> getAll() {
 
-        List<User> userList=userDAO.getAll();
-        for(User user: userList){
-            if(user.getUsertype()!="ADMIN"){
-                 return new ArrayList<>();
-            }
-        }
-
+        List<HospitalRegistry> userList=hospitalRegistryDAO.getAll();
         // Ottiene una lista di entit� e le restituisce convertendole in DTO
-        return userRegistryConverter.toDTOList(hospitalRegistryDAO.getAll());
+        return hospitalRegistryConverter.toDTOList(hospitalRegistryDAO.getAll());
     }
 
     public boolean delete(int id) {
@@ -55,8 +49,20 @@ public class HospitalRegistryService {
     }
 
     public void insert(HospitalRegistryDTO dto){
-//        userDAO.read(UserSingleton.getInstance().getId());
         hospitalRegistryDAO.insert(hospitalRegistryConverter.toEntity(dto));
 
+    }
+
+    public HospitalRegistryDTO read(int id){
+        return  hospitalRegistryConverter.toDTO(hospitalRegistryDAO.read(id));
+    }
+
+    public int readId(int userId){
+        return hospitalRegistryDAO.readId(userId);
+    }
+
+    public boolean update(HospitalRegistryDTO dto) {
+        // Converte un userDTO in entità e lo passa allo userDAO per la modifica
+        return hospitalRegistryDAO.update(hospitalRegistryConverter.toEntity(dto));
     }
 }

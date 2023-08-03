@@ -19,7 +19,7 @@ public class UserDAO {
 	private final String QUERY_READ = "SELECT * FROM user WHERE id=?";
 	private final String QUERY_UPDATE = "UPDATE user SET username=?, password=?, usertype=? WHERE id=?";
 	private final String QUERY_DELETE = "DELETE FROM user WHERE id=?";
-
+	private final String QUERY_READBYID = "select u.username, u.usertype, ua.nome, ua.cognome, ua.indirizzo, ua.data_di_nascita  from user u join user_anagrafico ua on u.id = ua.user_id  where u.id=?";
 	public UserDAO() {
 
 	}

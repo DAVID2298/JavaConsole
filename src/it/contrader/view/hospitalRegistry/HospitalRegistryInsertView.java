@@ -66,10 +66,9 @@ public class HospitalRegistryInsertView extends AbstractView {
         request.put("province",province);
         request.put("city",city);
         request.put("description",description);
-
         request.put("mode",mode);
         request.put("register", "false");
-        MainDispatcher.getInstance().callAction("HospitalRegisty", "doControl", request);
+        MainDispatcher.getInstance().callAction("HospitalRegistry", "doControl", request);
 
     }
 

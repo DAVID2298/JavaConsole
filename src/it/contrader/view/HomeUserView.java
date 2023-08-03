@@ -3,6 +3,7 @@ package it.contrader.view;
 
 import it.contrader.controller.Request;
 import it.contrader.main.MainDispatcher;
+import it.contrader.main.UserSingleton;
 
 public class HomeUserView extends AbstractView{
 
@@ -19,10 +20,10 @@ public class HomeUserView extends AbstractView{
 	@Override
 	public void showOptions() {
 		System.out.println("-------------MENU------------\n");
-//		System.out.println("Inserisci i tuoi ");
-//		System.out.println("\n Esatto, puoi solo uscire...");
+
+
 		System.out.println(" Seleziona cosa vuoi gestire:");
-		System.out.println("[L]eggi [I]nserisci [M]odifica [B]ack [E]sci");
+		System.out.println("[L]eggi [I]nserisci [M]odifica [P]renotazioni [D]Filtra visite per tipologia [C]ancella [B]ack [E]sci");
 		choice = this.getInput();
 
 	}
@@ -33,7 +34,7 @@ public class HomeUserView extends AbstractView{
 		request= new Request();
 		request.put("choice",choice);
 		request.put("mode","GETCHOICE");
-		MainDispatcher.getInstance().callAction("UserRegistry","doControl",this.request);
+		MainDispatcher.getInstance().callAction("UserRegistry","doControl",request);
 	}
 
 }

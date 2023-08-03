@@ -17,7 +17,7 @@ public class AppointmentConverter {
                 appointment.getHour(),
                 appointment.getCost(),
                 appointment.getUser_id(),
-                appointment.getMedical_booking_id()
+                appointment.getId_ME()
         );
         return appointmentDTO;
     }
@@ -29,7 +29,7 @@ public class AppointmentConverter {
                 appointmentDTO.getHour(),
                 appointmentDTO.getCost(),
                 appointmentDTO.getUser_id(),
-                appointmentDTO.getMedical_booking_id()
+                appointmentDTO.getId_ME()
         );
         return appointment;
     }

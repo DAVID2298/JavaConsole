@@ -4,7 +4,7 @@ import it.contrader.controller.Request;
 import it.contrader.main.MainDispatcher;
 import it.contrader.view.AbstractView;
 
-public class MedicalExaminationView extends AbstractView {
+public class MEInsertView extends AbstractView {
 
     private Request request;
 
@@ -22,9 +22,9 @@ public class MedicalExaminationView extends AbstractView {
 
     private String img;
 
-    private final String mode = "PRODOTTO";
+    private final String mode = "INSERT";
 
-    public MedicalExaminationView() {
+    public MEInsertView() {
     }
 
     /**
@@ -35,7 +35,7 @@ public class MedicalExaminationView extends AbstractView {
     public void showResults(Request request) {
         if (request!=null) {
             System.out.println("Inserimento andato a buon fine.\n");
-            MainDispatcher.getInstance().callView("User", null);
+            MainDispatcher.getInstance().callView("HomeAdmin", null);
         }
     }
 
@@ -73,7 +73,8 @@ public class MedicalExaminationView extends AbstractView {
         request.put("code", code);
         request.put("hours",hours);
         request.put("img", img);
-        MainDispatcher.getInstance().callAction("MedicalExamination", "doControl", request);
+        request.put("mode", mode);
+        MainDispatcher.getInstance().callAction("ME", "doControl", request);
     }
 
 }

@@ -3,7 +3,10 @@ package it.contrader.view.userRegistry;
 import it.contrader.controller.Request;
 import it.contrader.dto.UserRegistryDTO;
 import it.contrader.main.MainDispatcher;
+import it.contrader.main.UserSingleton;
 import it.contrader.view.AbstractView;
+
+import java.util.List;
 
 public class UserRegistryReadView extends AbstractView {
 
@@ -21,13 +24,18 @@ public class UserRegistryReadView extends AbstractView {
             System.out.println(userRegistryDTO);
             MainDispatcher.getInstance().callView("UserRegistry",null);
         }
-
+//        @SuppressWarnings("unchecked")
+//        List<UserRegistryDTO> userRegistryS = (List<UserRegistryDTO>) request.get("userRegistryS");
+//        for(UserRegistryDTO u: userRegistryS){
+//            System.out.println(u);
+//            System.out.println();
+//
+//        }
     }
 
     @Override
     public void showOptions() {
-        System.out.println("Inserisci l'ID dell'utente:");
-        userId = Integer.parseInt(getInput());
+        System.out.println("sono nell'read anagrafico");
 
     }
 

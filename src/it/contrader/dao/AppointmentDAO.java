@@ -9,34 +9,36 @@ import java.util.List;
 
 public class AppointmentDAO {
 
-    private final String QUERY_ALL = "SELECT * FROM prenotazione";
+    private final String QUERY_ALL = "SELECT * FROM prenotazione WHERE id_user=?";
     private final String QUERY_CREATE = "INSERT INTO prenotazione (id_prenotazione, data, orario,costo,id_user,id_visita)"
-            + " VALUES (?,?,?,?.?.?)";
+            + " VALUES (?,?,?,?,?,?)";
     private final String QUERY_READ = "SELECT * FROM prenotazione WHERE id_prenotazione=?";
     private final String QUERY_UPDATE = "UPDATE prenotazione SET data=?," +
             "orario=?,costo=? WHERE id_prenotazione=?";
     private final String QUERY_DELETE = "DELETE FROM prenotazione WHERE id_prenotazione=?";
 
+
     public AppointmentDAO() {
 
     }
 
-    public List<Appointment> getAll() {
+    public List<Appointment> getAll(long userId) {
         List<Appointment> appointmentList = new ArrayList<>();
         Connection connection = ConnectionSingleton.getInstance();
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(QUERY_ALL);
+            PreparedStatement preparedStatement= connection.prepareStatement(QUERY_ALL);
+            preparedStatement.setLong(1,userId);
+            ResultSet resultSet=preparedStatement.executeQuery();
             Appointment appointment;
             while (resultSet.next()) {
                 int id_prenotazione = resultSet.getInt("id_prenotazione");
                 String data = resultSet.getString("data");
                 String orario = resultSet.getString("orario");
                 double costo = resultSet.getDouble("costo");
-                int id_user = resultSet.getInt("id_user");
+//                int id_user = resultSet.getInt("id_user");
                 int id_visita = resultSet.getInt("id_visita");
 
-                appointment = new Appointment(id_prenotazione, data, orario, costo, id_user, id_visita);
+                appointment = new Appointment(id_prenotazione, data, orario, costo, userId, id_visita);
                 appointment.setId(id_prenotazione);
                 appointmentList.add(appointment);
             }
@@ -55,7 +57,7 @@ public class AppointmentDAO {
             preparedStatement.setString(3, appointmentToInsert.getHour());
             preparedStatement.setDouble(4, appointmentToInsert.getCost());
             preparedStatement.setLong(5, appointmentToInsert.getUser_id());
-            preparedStatement.setLong(6, appointmentToInsert.getMedical_booking_id());
+            preparedStatement.setLong(6, appointmentToInsert.getId_ME());
             preparedStatement.execute();
             return true;
         } catch (SQLException e) {
@@ -80,8 +82,8 @@ public class AppointmentDAO {
             data = resultSet.getString("data");
             orario = resultSet.getString("orario");
             costo = resultSet.getDouble("costo");
-            user_id = resultSet.getLong("user_id");
-            medical_booking_id = resultSet.getLong("medical_booking_id");
+            user_id = resultSet.getLong("id_user");
+            medical_booking_id = resultSet.getLong("id_visita");
             Appointment appointment = new Appointment(id_prenotazione, data, orario, costo, user_id, medical_booking_id);
             appointment.setId(resultSet.getLong("id_prenotazione"));
 

@@ -47,7 +47,7 @@ public class UserRegistryView extends AbstractView{
         request = new Request();
         request.put("choice", choice);
         request.put("mode", "GETCHOICE");
-        MainDispatcher.getInstance().callAction("UserRegistry", "doControl", request);
+        MainDispatcher.getInstance().callAction("UserRegistry", "doControl", this.request);
 
 
 

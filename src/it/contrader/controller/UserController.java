@@ -2,10 +2,13 @@ package it.contrader.controller;
 
 import java.util.List;
 
-import it.contrader.dto.MedicalExaminationDTO;
 import it.contrader.dto.UserDTO;
+import it.contrader.dto.UserRegistryDTO;
 import it.contrader.main.MainDispatcher;
+import it.contrader.main.UserSingleton;
 import it.contrader.service.HospitalRegistryService;
+import it.contrader.service.MedicalExaminationService;
+import it.contrader.service.UserRegistryService;
 import it.contrader.service.UserService;
 
 /**
@@ -19,19 +22,23 @@ public class UserController implements Controller {
 	/**
 	 * definisce il pacchetto di vista user.
 	 */
-	private static String sub_package = "userRegistry.";
+	private static String sub_package = "user.";
 
 
 
 	
 	private UserService userService;
 	private HospitalRegistryService hospitalRegistryService;
+	private MedicalExaminationService medicalExaminationService;
+	private UserRegistryService userRegistryService;
 	/**
 	 * Costruisce un oggetto di tipo UserService per poterne usare i metodi
 	 */
 	public UserController() {
 		this.userService = new UserService();
 		this.hospitalRegistryService= new HospitalRegistryService();
+		this.userRegistryService=new UserRegistryService();
+
 	}
 	
 	
@@ -62,14 +69,15 @@ public class UserController implements Controller {
 
 		switch (mode) {
 		
-		// Arriva qui dalla UserReadView. Invoca il Service con il parametro id e invia alla UserReadView uno user da mostrare 
+
 		case "READ":
-			id = Integer.parseInt(request.get("id").toString());
+
+			id = UserSingleton.getInstance().getUserLogged().getId();
+
 			UserDTO userDTO = userService.read(id);
 			request.put("user", userDTO);
-			MainDispatcher.getInstance().callView(sub_package + "UserRead", request);
+			MainDispatcher.getInstance().callView("user." + "UserRead", request);
 			break;
-		
 		// Arriva qui dalla UserInsertView. Estrae i parametri da inserire e chiama il service per inserire uno user con questi parametri
 		case "INSERT":
 			username = request.get("username").toString();
@@ -78,6 +86,7 @@ public class UserController implements Controller {
 			
 			//costruisce l'oggetto user da inserire
 			UserDTO usertoinsert = new UserDTO(username, password, usertype);
+
 			//invoca il service
 			userService.insert(usertoinsert);
 			request = new Request();
@@ -110,21 +119,7 @@ public class UserController implements Controller {
 			MainDispatcher.getInstance().callView(sub_package + "UserUpdate", request);
 			break;
 
-//			case "PRODOTTO":
-//				long idProdotto = Long.parseLong(request.get("id").toString());
-//				String name = request.get("nome").toString();
-//				String typology = request.get("tipologia").toString();
-//				double cost = Double.parseDouble(request.get("costo").toString());
-//				long code = Long.parseLong(request.get("codice").toString());
-//				String hours = request.get("orari").toString();
-//				String img = request.get("img").toString();
-//				MedicalExaminationDTO medicalExaminationDTO = new MedicalExaminationDTO(idProdotto,name,typology,cost,code,hours,img);
-//				hospitalRegistryService.insert(medicalExaminationDTO);
-//				request = new Request();
-//				request.put("mode", "mode");
-//				MainDispatcher.getInstance().callView(sub_package + "UserUpdate", request);
-//				break;
-			
+
 		//Arriva qui dalla UserView Invoca il Service e invia alla UserView il risultato da mostrare 
 		case "USERLIST":
 			List<UserDTO> usersDTO = userService.getAll();
@@ -132,6 +127,15 @@ public class UserController implements Controller {
 			request.put("users", usersDTO);
 			MainDispatcher.getInstance().callView("User", request);
 			break;
+		case "ELIMINA":
+			id = UserSingleton.getInstance().getUserLogged().getId();
+			//Qui chiama il service
+			userService.delete(id);
+			request = new Request();
+			request.put("mode", "mode");
+			MainDispatcher.getInstance().callView("hospitalRegistry." + "AdminDelete", request);
+			break;
+
 			
 		//Esegue uno switch sulla base del comando inserito dall'utente e reindirizza tramite il Dispatcher alla View specifica per ogni operazione
 		//con REQUEST NULL (vedi una View specifica)
@@ -167,6 +171,15 @@ public class UserController implements Controller {
 			case "X":
 				MainDispatcher.getInstance().callView(sub_package + "UserRegistry",null);
 				break;
+			case "V":
+				MainDispatcher.getInstance().callView("MedicalExamination",null);
+				break;
+
+			case "Y":
+				List<UserRegistryDTO> usersoDTO = userRegistryService.getAll();
+				//Impacchetta la request con la lista degli user
+				request.put("user", usersoDTO);
+				MainDispatcher.getInstance().callView("user."+"Full",request);
 
 			default:
 				MainDispatcher.getInstance().callView("Login", null);
