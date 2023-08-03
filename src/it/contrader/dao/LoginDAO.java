@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import it.contrader.main.ConnectionSingleton;
 import it.contrader.main.UserSingleton;
 import it.contrader.model.User;
@@ -23,6 +24,7 @@ public class LoginDAO {
 	public String login (String username, String password) {
 
 		Connection connection = ConnectionSingleton.getInstance();
+
 		try {
 			PreparedStatement statement = connection.prepareStatement(QUERY_LOGIN);
 			
@@ -30,15 +32,17 @@ public class LoginDAO {
 			statement.setString(2, password);
 
 			String usertype = null;
-			
+			int id=0;
 			ResultSet resultSet;
 			
 			if(statement.executeQuery().next()) {
 				resultSet = statement.executeQuery();
 				resultSet.next();
 				usertype = resultSet.getString("usertype");
-				User loggedInUser = new User(username,password,usertype);
+				id=resultSet.getInt("id");
+				User loggedInUser = new User(id,username,password,usertype);
 				UserSingleton.getInstance().setUserLogged(loggedInUser);
+
 			}
 
 			return usertype;

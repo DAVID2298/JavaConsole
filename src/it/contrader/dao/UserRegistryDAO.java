@@ -14,7 +14,8 @@ public class UserRegistryDAO {
     private final String QUERY_READ= "SELECT * FROM user_anagrafico WHERE user_id=?";
     private final String QUERY_UPDATE= "UPDATE user_anagrafico SET nome=?, cognome=?, indirizzo=?, data_di_nascita=? WHERE User_id=?";
     private final String QUERY_DELETE= "DELETE from user WHERE id=?";
-
+    private final String QUERY_DELETEBYIDUSER= "DELETE user_anagrafico FROM user_anagrafico JOIN user ON user_anagrafico.User_Id = user.idWHERE user.id = ?";
+    private final String QUERY_REGISTRY="select id_anagrafica, user_id from user_anagrafico where user_id = ?";
     public UserRegistryDAO() {
     }
 
@@ -28,7 +29,7 @@ public class UserRegistryDAO {
             ResultSet resultSet = statement.executeQuery(QUERY_ALL);
             UserRegistry userRegistry;
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("id_anagrafica");
                 String name = resultSet.getString("nome");
                 String surname = resultSet.getString("cognome");
                 String address = resultSet.getString("indirizzo");
@@ -64,7 +65,6 @@ public class UserRegistryDAO {
     }
 
     public UserRegistry read(long uRegistry){
-
         Connection connection= ConnectionSingleton.getInstance();
         try{
 
@@ -95,14 +95,14 @@ public class UserRegistryDAO {
         if(userRegistryToUpdate.getId()==0){
             return false;
         }
-        UserRegistry userRegistryRead = read(userRegistryToUpdate.getId());
+        UserRegistry userRegistryRead = read(userRegistryToUpdate.getUserId());
         if (!userRegistryRead.equals(userRegistryToUpdate)){
             try{
                 if (userRegistryToUpdate.getName()==null||userRegistryToUpdate.getName().equals("")){
                     userRegistryToUpdate.setName(userRegistryRead.getName());
                 }
                 if (userRegistryToUpdate.getSurname()==null||userRegistryToUpdate.getSurname().equals("")){
-                    userRegistryRead.setSurname(userRegistryRead.getName());
+                    userRegistryRead.setSurname(userRegistryRead.getSurname());
                 }
 
                 if (userRegistryToUpdate.getAddress()==null||userRegistryToUpdate.getAddress().equals("")){
@@ -112,7 +112,9 @@ public class UserRegistryDAO {
                     userRegistryToUpdate.setBirthDate(userRegistryRead.getBirthDate());
                 }
 
+
                 PreparedStatement preparedStatement = connection.prepareStatement(QUERY_UPDATE);
+
                 preparedStatement.setString(1, userRegistryToUpdate.getName());
                 preparedStatement.setString(2, userRegistryToUpdate.getSurname());
                 preparedStatement.setString(3, userRegistryToUpdate.getAddress());
@@ -144,6 +146,26 @@ public class UserRegistryDAO {
         }
         return false;
     }
+
+    public int readId(int userId){
+        Connection connection= ConnectionSingleton.getInstance();
+        try{
+
+            PreparedStatement preparedStatement= connection.prepareStatement(QUERY_REGISTRY);
+            preparedStatement.setLong(1,userId);
+            ResultSet resultSet= preparedStatement.executeQuery();
+            resultSet.next();
+            int id;
+//            userRegistry.getId(resultSet.getInt("id_anagrafica"));
+            id = resultSet.getInt("id_anagrafica");
+            return id;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 
 
 

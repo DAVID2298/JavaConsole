@@ -1,5 +1,7 @@
 package it.contrader.main;
 
+import it.contrader.dto.UserDTO;
+
 import java.io.FileInputStream;
 
 import java.io.InputStream;
@@ -21,7 +23,7 @@ public class ConnectionSingleton {
 	 * Connection : � un tipo di oggetto
 	 */
     private static Connection connection = null;
-
+    private static UserDTO userDTO;
     /*
      * Costruttore vuoto in quanto esso non ha mai bisogno di essere instanziato
      */

@@ -21,22 +21,6 @@ public class HospitalRegistryView extends AbstractView {
 
     @Override
     public void showResults(Request request) {
-        if (request != null) {
-            System.out.println("\n------------------- Profilo utente ----------------\n");
-            System.out.println("Nome|\tCognome|\tIndirizzo|\tData di nascita'|");
-            System.out.println("----------------------------------------------------\n");
-            UserRegistryDTO userRegistryDTO = new UserRegistryDTO();
-            userRegistryDTO = (UserRegistryDTO) request.get("userRegistry");
-            System.out.println(userRegistryDTO);
-
-        }
-
-        @SuppressWarnings("unchecked")
-        List<HospitalRegistryDTO> datianagraficiH = (List<HospitalRegistryDTO>) request.get("datianagraficiH");
-        for (HospitalRegistryDTO d : datianagraficiH) {
-            System.out.println(d);
-            System.out.println();
-        }
 
 
     }
@@ -44,7 +28,7 @@ public class HospitalRegistryView extends AbstractView {
     @Override
     public void showOptions(){
         System.out.println("          Scegli l'operazione da effettuare:");
-        System.out.println("[A]inserisci dati clinica [M]odifica clinica [E]sci");
+        System.out.println("[I]inserisci dati clinica [M]odifica clinica [E]sci");
 
         this.choice = getInput();
 

@@ -2,8 +2,10 @@ package it.contrader.controller;
 
 import it.contrader.converter.HospitalRegistryConverter;
 import it.contrader.dto.HospitalRegistryDTO;
+import it.contrader.dto.MedicalExaminationDTO;
 import it.contrader.dto.UserRegistryDTO;
 import it.contrader.main.MainDispatcher;
+import it.contrader.main.UserSingleton;
 import it.contrader.model.HospitalRegistry;
 import it.contrader.model.User;
 import it.contrader.model.UserRegistry;
@@ -24,13 +26,13 @@ public class HospitalRegistryController implements Controller {
         this.hospitalRegistryConverter= new HospitalRegistryConverter();
     }
 
-
     @Override
     public void doControl(Request request) {
 
         String mode =(String) request.get("mode");
         String choice = (String) request.get("choice");
 
+        long id;
         String name;
         String address;
         String nation;
@@ -47,54 +49,53 @@ public class HospitalRegistryController implements Controller {
 
 
             case "INSERT":
-                System.out.println("ciao");
-                name=request.get("name").toString();
-                address=request.get("address").toString();
-                nation=  request.get("nation").toString();
-                province=request.get("province").toString();
-                city=  request.get("city").toString();
-                description= request.get("description").toString();
-
-                userId= Long.parseLong(request.get("userId").toString());
-                register=request.get("register").toString();
+                System.out.println("sono qui ciao");
+                name = request.get("name").toString();
+                address = request.get("address").toString();
+                nation = request.get("nation").toString();
+                province = request.get("province").toString();
+                city = request.get("city").toString();
+                description = request.get("description").toString();
+                userId= UserSingleton.getInstance().getUserLogged().getId();
                 HospitalRegistryDTO hospitalRegistryDTO = new HospitalRegistryDTO(name,address,nation,province,city,description,userId);
-//            userRegistry.getUserId();
-//            user.getId();
-//            userRegistryDTO.setUserId(user.getId());
-                System.out.println(hospitalRegistryDTO);
-
                 hospitalRegistryService.insert(hospitalRegistryDTO);
                 request = new Request();
-                request.put("register", register);
+                request.put("mode","mode");
                 MainDispatcher.getInstance().callView(sub_package + "HospitalRegistryInsert", request);
                 break;
-//            case "UPDATE":
-//                name=request.get("name").toString();
-//                address=request.get("address").toString();
-//                nation=  request.get("nation").toString();
-//                province=request.get("province").toString();
-//                city=  request.get("city").toString();
-//                description= request.get("description").toString();
-//
-//                userId= Integer.parseInt(request.get("userId").toString());
-//                register=request.get("register").toString();
-//                hospitalRegistry.setUser_id(user.getId());
-//
-//
-//                HospitalRegistryDTO hospitalRegistryUpdate =new HospitalRegistryDTO(name,address,nation,province,city,description,userId);
-//                hospitalRegistryUpdate.setUser_id(userId);
-//                hospitalRegistryService.update(hospitalRegistryUpdate);
-//                request = new Request();
-//                request.put("mode", "mode");
-//                MainDispatcher.getInstance().callView(sub_package + "HospitalRegistryUpdate", request);
-//                break;
+            case "UPDATE":
+                System.out.println("sono qui");
+                int i = UserSingleton.getInstance().getUserLogged().getId();
+                id= hospitalRegistryService.readId(i);
+                name=request.get("name").toString();
+                address=request.get("address").toString();
+                nation= request.get("nation").toString();
+                province= request.get("province").toString();
+                city= request.get("city").toString();
+                description= request.get("description").toString();
+                userId=UserSingleton.getInstance().getUserLogged().getId();
+                HospitalRegistryDTO hospitalRegistryUpdate =new HospitalRegistryDTO(id,name,address,nation,province,city,description,userId);
 
 
-            case "HOSPITALREGISTRYLIST":
-                List<UserRegistryDTO> userRegistryDTOS = userRegistryService.getAll();
-                //Impacchetta la request con la lista degli user
-                request.put("userRegistryDTOS", userRegistryDTOS);
-                MainDispatcher.getInstance().callView(sub_package + "HospitalRegistryAllUser", request);
+                System.out.println(hospitalRegistryUpdate);
+
+                hospitalRegistryService.update(hospitalRegistryUpdate);
+                request = new Request();
+                request.put("mode",hospitalRegistryService );
+                System.out.println(hospitalRegistryUpdate+" aaaa");
+                MainDispatcher.getInstance().callView(sub_package + "Modifica", request);
+                System.out.println(hospitalRegistryUpdate);
+                break;
+            case "PROFILO":
+                userId = UserSingleton.getInstance().getUserLogged().getId();
+                HospitalRegistryDTO hospitalRegistryDTO1 = hospitalRegistryService.read((int) userId);
+                request.put("hospitalRegistry", hospitalRegistryDTO1);
+                MainDispatcher.getInstance().callView(sub_package + "HospitalRegistryRead", request);
+                break;
+
+            case "HOSPITALREGISTRY":
+
+                MainDispatcher.getInstance().callView("HospitalRegistry", request);
                 break;
             case "GETCHOICE":
 
@@ -110,7 +111,7 @@ public class HospitalRegistryController implements Controller {
                         break;
 
                     case "M":
-                        MainDispatcher.getInstance().callView(sub_package + "UserRegistryUpdate", null);
+                        MainDispatcher.getInstance().callView("hospitalRegistry." + "Modifica",null);
                         break;
 
                     case "E":

@@ -27,11 +27,17 @@ public class UserRegistryService {
         return userRegistryConverter.toDTO(userRegistryDAO.read(Id));
     }
 
+    public int readId(int userId){
+        return userRegistryDAO.readId(userId);
+    }
+
 
     public boolean insert(UserRegistryDTO dto) {
         // Converte un DTO in entità e lo passa al DAO per l'inserimento
         return userRegistryDAO.insert(userRegistryConverter.toEntity(dto));
+
     }
+
 
 
     public boolean update(UserRegistryDTO dto) {

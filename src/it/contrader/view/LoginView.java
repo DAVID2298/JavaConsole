@@ -9,6 +9,8 @@ public class LoginView extends AbstractView {
 	
 	private String password;
 
+	private int id;
+
 	public void showResults(Request request) {
 
 	}
@@ -35,6 +37,7 @@ public class LoginView extends AbstractView {
 		
 		request.put("username", username);
 		request.put("password", password);
+		request.put("id",id);
 		
 		MainDispatcher.getInstance().callAction("Home", "doControl", request);
 	}

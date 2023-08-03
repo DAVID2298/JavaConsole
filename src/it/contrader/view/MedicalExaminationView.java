@@ -1,27 +1,28 @@
 package it.contrader.view;
 
 import it.contrader.controller.Request;
+import it.contrader.dto.MedicalExaminationDTO;
 import it.contrader.dto.UserRegistryDTO;
 import it.contrader.main.MainDispatcher;
 
 import java.util.List;
 
-public class UserRegistryView extends AbstractView{
+public class MedicalExaminationView extends AbstractView{
 
     private Request request;
     private String choice;
-    public UserRegistryView(){
+    public MedicalExaminationView(){
     }
+
 
     @Override
     public void showResults(Request request) {
         if (request != null){
-            System.out.println("\n------------------- Profilo utente ----------------\n");
-            System.out.println("Nome\tCognome\tIndirizzo\tData di nascita\t");
+            System.out.println("\n------------------- Visite ----------------\n");
             System.out.println("----------------------------------------------------\n");
             @SuppressWarnings("unchecked")
-            List<UserRegistryDTO> userRegistryS =(List<UserRegistryDTO>) request.get("userRegistryS");
-            for (UserRegistryDTO d:userRegistryS) {
+            List<MedicalExaminationDTO> medicalExaminationS =(List<MedicalExaminationDTO>) request.get("medicalExaminationS");
+            for (MedicalExaminationDTO d:medicalExaminationS) {
                 System.out.println(d);
                 System.out.println();
 
@@ -32,8 +33,8 @@ public class UserRegistryView extends AbstractView{
 
     @Override
     public void showOptions() {
-        System.out.println("          Scegli l'operazione da effettuare:");
-        System.out.println("[L]eggi [I]nserisci [M]odifica [B]ack [E]sci");
+        System.out.println("          Visite      :");
+        System.out.println("[L]eggi [I]nserisci Visita [C]ancella [M]odifica [B]ack [E]sci");
 
         this.choice = getInput();
 
@@ -47,7 +48,7 @@ public class UserRegistryView extends AbstractView{
         request = new Request();
         request.put("choice", choice);
         request.put("mode", "GETCHOICE");
-        MainDispatcher.getInstance().callAction("UserRegistry", "doControl", this.request);
+        MainDispatcher.getInstance().callAction("ME", "doControl", this.request);
 
 
 

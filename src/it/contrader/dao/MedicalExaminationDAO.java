@@ -16,7 +16,9 @@ public class MedicalExaminationDAO {
     private final String QUERY_READ = "SELECT * FROM visita WHERE id_visita=?";
     private final String QUERY_UPDATE = "UPDATE visita SET nome=?, tipologia=?, costo=?, codice=?, orari=?, img=? WHERE id_visita=?";
     private final String QUERY_DELETE = "DELETE FROM visita WHERE id_visita=?";
-
+    private final String QUERY_IDME="select visita.Id_Visita from visita join prenotazione on prenotazione.id_user=? where prenotazione.Id_Visita=visita.Id_Visita;";
+    private final String QUERY_COUNT="select count(*) from visita WHERE tipologia=?";
+    private final String QUERY_SEARCH="Select * from visita where id_visita=?";
     public MedicalExaminationDAO(){
 
     }
@@ -33,7 +35,7 @@ public class MedicalExaminationDAO {
             MedicalExamination medicalExamination;
             while (resultSet.next()){
 
-                long id = resultSet.getLong("id_visita");
+                long id = resultSet.getLong("Id_Visita");
                 String name = resultSet.getString("nome");
                 String typology = resultSet.getString("tipologia");
                 double cost = resultSet.getDouble("costo");
@@ -60,10 +62,10 @@ public class MedicalExaminationDAO {
             preparedStatement.setLong(1, medicalExaminationToInsert.getId());
             preparedStatement.setString(2, medicalExaminationToInsert.getName());
             preparedStatement.setString(3, medicalExaminationToInsert.getTypology());
-            preparedStatement.setDouble(3, medicalExaminationToInsert.getCost());
-            preparedStatement.setLong(3, medicalExaminationToInsert.getCode());
-            preparedStatement.setString(3, medicalExaminationToInsert.getHours());
-            preparedStatement.setString(3, medicalExaminationToInsert.getImg());
+            preparedStatement.setDouble(4, medicalExaminationToInsert.getCost());
+            preparedStatement.setLong(5, medicalExaminationToInsert.getCode());
+            preparedStatement.setString(6, medicalExaminationToInsert.getHours());
+            preparedStatement.setString(7, medicalExaminationToInsert.getImg());
             preparedStatement.execute();
             return true;
         }catch (SQLException e){
@@ -141,6 +143,7 @@ public class MedicalExaminationDAO {
                 preparedStatement.setLong(4, medicalExaminationToUpdate.getCode());
                 preparedStatement.setString(5, medicalExaminationToUpdate.getHours());
                 preparedStatement.setString(6, medicalExaminationToUpdate.getImg());
+                preparedStatement.setLong(7,medicalExaminationToUpdate.getId());
                 int a = preparedStatement.executeUpdate();
                 if (a > 0)
                     return true;
@@ -168,6 +171,77 @@ public class MedicalExaminationDAO {
         } catch (SQLException e) {
         }
         return false;
+    }
+
+    public int readId(int userId){
+        Connection connection= ConnectionSingleton.getInstance();
+        try{
+
+            PreparedStatement preparedStatement= connection.prepareStatement(QUERY_IDME);
+            preparedStatement.setLong(1,userId);
+            ResultSet resultSet= preparedStatement.executeQuery();
+            resultSet.next();
+            int id;
+            id = resultSet.getInt("id_visita");
+            return id;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int statistic(String type){
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_COUNT);
+            preparedStatement.setString(1,type);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            int statistic = resultSet.getInt("count(*)");
+
+            return statistic;
+        } catch (SQLException e) {
+            return 0;
+        }
+
+    }
+
+
+    public MedicalExamination search(int id) {
+        Connection connection = ConnectionSingleton.getInstance();
+        try {
+
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY_SEARCH);
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            String name,typology;
+            double cost;
+            long code;
+            String hours,img;
+            int userId;
+
+
+            name = resultSet.getString("nome");
+            typology = resultSet.getString("tipologia");
+            cost = resultSet.getDouble("costo");
+            code = resultSet.getLong("codice");
+            hours = resultSet.getString("orari");
+            img = resultSet.getString("img");
+//            userId = resultSet.getInt("userId");
+            MedicalExamination medicalExamination = new MedicalExamination(name,typology,cost,code,hours,img);
+            medicalExamination.setId(resultSet.getInt("id_visita"));
+
+
+            return medicalExamination;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

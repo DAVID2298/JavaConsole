@@ -16,14 +16,14 @@ public class UserInsertView extends AbstractView{
 	}
 	
 	/**
-	 * Se la request non è nulla (ovvero se si arriva dalla mode INSERT del controller) mostra
+	 * Se la request non ï¿½ nulla (ovvero se si arriva dalla mode INSERT del controller) mostra
 	 * l'esito dell'operazione
 	 */
 	@Override
 	public void showResults(Request request) {
 		if (request!=null) {
 			System.out.println("Inserimento andato a buon fine.\n");
-			MainDispatcher.getInstance().callView("User", null);
+			MainDispatcher.getInstance().callView("Login", null);
 		}
 	}
 

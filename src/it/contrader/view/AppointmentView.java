@@ -1,55 +1,53 @@
 package it.contrader.view;
 
 import it.contrader.controller.Request;
+import it.contrader.dto.AppointmentDTO;
 import it.contrader.dto.UserRegistryDTO;
 import it.contrader.main.MainDispatcher;
 
 import java.util.List;
 
-public class UserRegistryView extends AbstractView{
+public class AppointmentView extends AbstractView {
+
+    private String choice;
 
     private Request request;
-    private String choice;
-    public UserRegistryView(){
-    }
+
 
     @Override
     public void showResults(Request request) {
         if (request != null){
             System.out.println("\n------------------- Profilo utente ----------------\n");
-            System.out.println("Nome\tCognome\tIndirizzo\tData di nascita\t");
+            System.out.println("id\tdata\tora\tcosto\tuser_id\tid_visita");
             System.out.println("----------------------------------------------------\n");
             @SuppressWarnings("unchecked")
-            List<UserRegistryDTO> userRegistryS =(List<UserRegistryDTO>) request.get("userRegistryS");
-            for (UserRegistryDTO d:userRegistryS) {
+            List<AppointmentDTO> appointments =(List<AppointmentDTO>) request.get("appointments");
+            for (AppointmentDTO d:appointments) {
                 System.out.println(d);
                 System.out.println();
 
             }
         }
-
     }
 
     @Override
     public void showOptions() {
-        System.out.println("          Scegli l'operazione da effettuare:");
-        System.out.println("[L]eggi [I]nserisci [M]odifica [B]ack [E]sci");
 
-        this.choice = getInput();
+        System.out.println("---------PRENOTAZIONI----------");
+        System.out.println("Seleziona l'operazione");
+        System.out.println("[L]eggi [I]nserisci [V]isualizza storico prenotazioni [C]ancella [E]sci");
 
-
-
+        choice = this.getInput();
 
     }
 
     @Override
     public void submit() {
+
         request = new Request();
         request.put("choice", choice);
         request.put("mode", "GETCHOICE");
-        MainDispatcher.getInstance().callAction("UserRegistry", "doControl", this.request);
-
-
+        MainDispatcher.getInstance().callAction("Appointment" , "doControl", request);
 
     }
 }

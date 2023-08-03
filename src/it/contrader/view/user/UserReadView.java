@@ -3,6 +3,7 @@ package it.contrader.view.user;
 import it.contrader.controller.Request;
 
 import it.contrader.dto.UserDTO;
+import it.contrader.dto.UserRegistryDTO;
 import it.contrader.main.MainDispatcher;
 import it.contrader.view.AbstractView;
 
@@ -22,8 +23,8 @@ public class UserReadView extends AbstractView {
 	}
 
 	/**
-	 * Se la request è null (ovvero quando arriva dal controller con mode GETCHOICE e choice L 
-	 * il metodo è vuoto.
+	 * Se la request ï¿½ null (ovvero quando arriva dal controller con mode GETCHOICE e choice L 
+	 * il metodo ï¿½ vuoto.
 	 * 
 	 * Altrimenti se arriva con uno user nella request (ovvero quando arriva
 	 * dal controller con mode READ) mostra lo user. In questo caso torna alla UserView senza eseguire
@@ -33,6 +34,7 @@ public class UserReadView extends AbstractView {
 	public void showResults(Request request) {
 		if (request != null) {
 			UserDTO user = (UserDTO) request.get("user");
+			UserRegistryDTO userRegistry=(UserRegistryDTO) request.get("userRegistry");
 			System.out.println(user);
 			MainDispatcher.getInstance().callView("User", null);
 		}
@@ -44,8 +46,9 @@ public class UserReadView extends AbstractView {
 	 */
 	@Override
 	public void showOptions() {
-		System.out.println("Inserisci l'ID dell'utente:");
-		id = Integer.parseInt(getInput());
+
+
+
 	}
 
 	/**
@@ -55,6 +58,7 @@ public class UserReadView extends AbstractView {
 	public void submit() {
 		request = new Request();
 		request.put("id", id);
+		request.put("userId",id);
 		request.put("mode", mode);
 		MainDispatcher.getInstance().callAction("User", "doControl", request);
 	}

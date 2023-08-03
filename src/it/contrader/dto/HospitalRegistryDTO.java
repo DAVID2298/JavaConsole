@@ -109,4 +109,18 @@ public class HospitalRegistryDTO {
     public void setUser_id(long user_id) {
         this.user_id = user_id;
     }
+
+    @Override
+    public String toString() {
+        return "HospitalRegistryDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", nation='" + nation + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", description='" + description + '\'' +
+                ", user_id=" + user_id +
+                '}';
+    }
 }

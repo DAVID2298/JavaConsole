@@ -18,6 +18,8 @@ public class MedicalExaminationDTO {
 
     private String img;
 
+    private long userId;
+
     public MedicalExaminationDTO(long id, String name, String typology, double cost, long code, String hours, String img) {
         this.id = id;
         this.name = name;
@@ -26,6 +28,17 @@ public class MedicalExaminationDTO {
         this.code = code;
         this.hours = hours;
         this.img = img;
+    }
+
+    public MedicalExaminationDTO(long id, String name, String typology, double cost, long code, String hours, String img,long userId) {
+        this.id = id;
+        this.name = name;
+        this.typology = typology;
+        this.cost = cost;
+        this.code = code;
+        this.hours = hours;
+        this.img = img;
+        this.userId=userId;
     }
 
     public MedicalExaminationDTO(String name, String typology, double cost, long code, String hours, String img) {
@@ -94,5 +107,18 @@ public class MedicalExaminationDTO {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    @Override
+    public String toString() {
+        return "MedicalExaminationDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", typology='" + typology + '\'' +
+                ", cost=" + cost +
+                ", code=" + code +
+                ", hours='" + hours + '\'' +
+                ", img='" + img + '\'' +
+                '}';
     }
 }

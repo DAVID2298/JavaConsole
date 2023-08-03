@@ -2,10 +2,10 @@ package it.contrader.view.userRegistry;
 
 import it.contrader.controller.Request;
 import it.contrader.main.MainDispatcher;
+import it.contrader.service.UserRegistryService;
 import it.contrader.view.AbstractView;
-import it.contrader.view.View;
 
-public class UserRegistryUpdate extends AbstractView {
+public class AnagraficoUserView extends AbstractView {
 
     private Request request;
     private String name;
@@ -15,15 +15,17 @@ public class UserRegistryUpdate extends AbstractView {
     private long userId;
     private final String mode = "UPDATE";
 
-    UserRegistryUpdate(){
+    private final UserRegistryService userRegistryService;
 
+    AnagraficoUserView(UserRegistryService userRegistryService){
+        this.userRegistryService=userRegistryService;
     }
 
     @Override
     public void showResults(Request request) {
         if (request!=null) {
             System.out.println("Modifica andata a buon fine.\n");
-            MainDispatcher.getInstance().callView("HomeUser", null);
+            MainDispatcher.getInstance().callView("UserRegistry", null);
 
         }
 
@@ -57,13 +59,15 @@ public class UserRegistryUpdate extends AbstractView {
         request.put("surname", surname);
         request.put("address", address);
         request.put("dateBirthday", dateBirthday);
+        request.put("userId",userId);
+        request.put("mode",mode);
 
-        request.put("user",userId);
-        request.put("register","false");
+
+
+
         MainDispatcher.getInstance().callAction("UserRegistry", "doControl", request);
 
     }
 }
-
 
 

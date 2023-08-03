@@ -99,4 +99,17 @@ public class MedicalExamination {
 
     public MedicalExamination() {
     }
+
+    @Override
+    public String toString() {
+        return "MedicalExamination{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", typology='" + typology + '\'' +
+                ", cost=" + cost +
+                ", code=" + code +
+                ", hours='" + hours + '\'' +
+                ", img='" + img + '\'' +
+                '}';
+    }
 }

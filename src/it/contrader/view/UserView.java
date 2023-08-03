@@ -52,7 +52,7 @@ public class UserView extends AbstractView {
 	@Override
 	public void showOptions() {
 		System.out.println("          Scegli l'operazione da effettuare:");
-		System.out.println("[L]eggi [I]nserisci [M]odifica [C]ancella [B]ack [X]Dati_anagrafici [A] [E]sci");
+		System.out.println("[L]eggi [I]nserisci [M]odifica [C]ancella [B]ack [X]Dati_anagrafici [A] [Y]Lista utenti [E]sci");
 
 		this.choice = getInput();
 

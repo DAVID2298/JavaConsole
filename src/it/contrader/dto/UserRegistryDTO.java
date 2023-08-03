@@ -36,6 +36,15 @@ public class UserRegistryDTO {
     public UserRegistryDTO() {
     }
 
+    public UserRegistryDTO(String name, String surname, String address, String birthDate) {
+        this.name=name;
+        this.address=address;
+        this.surname=surname;
+        this.birthDate=birthDate;
+    }
+
+
+
     public long getId() {
         return id;
     }

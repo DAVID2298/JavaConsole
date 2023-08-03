@@ -17,9 +17,9 @@ public class AppointmentService {
     }
 
 
-    public List<AppointmentDTO> getAll() {
+    public List<AppointmentDTO> getAll(long userId) {
         // Ottiene una lista di entit? e le restituisce convertendole in DTO
-        return appointmentConverter.toDTOList(appointmentDAO.getAll());
+        return appointmentConverter.toDTOList(appointmentDAO.getAll(userId));
     }
 
 

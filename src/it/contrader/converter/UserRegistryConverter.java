@@ -12,7 +12,8 @@ public class UserRegistryConverter {
 
     public UserRegistryDTO toDTO(UserRegistry userRegistry){
 
-        UserRegistryDTO userRegistryDTO = new UserRegistryDTO(userRegistry.getId(),
+        UserRegistryDTO userRegistryDTO = new UserRegistryDTO(
+                userRegistry.getId(),
                 userRegistry.getAddress(),
                 userRegistry.getName(),
                 userRegistry.getSurname(),
@@ -23,7 +24,8 @@ public class UserRegistryConverter {
 
     public UserRegistry toEntity(UserRegistryDTO userRegistryDTO){
 
-        UserRegistry userRegistry = new UserRegistry(userRegistryDTO.getId(),
+        UserRegistry userRegistry = new UserRegistry(
+                userRegistryDTO.getId(),
                 userRegistryDTO.getAddress(),
                 userRegistryDTO.getName(),
                 userRegistryDTO.getSurname(),

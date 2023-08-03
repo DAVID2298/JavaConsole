@@ -32,8 +32,6 @@ public class UserRegistryInsertView extends AbstractView {
 
             }
 
-
-
         }
     }
 
@@ -48,9 +46,7 @@ public class UserRegistryInsertView extends AbstractView {
         address = getInput();
         System.out.println("Inserisci data di nascita dell'utente:");
         dateBirthday = getInput();
-        System.out.println("Inserisci l'Id dell'utente");
-        userId= Integer.parseInt(getInput());
-        System.out.println();
+
 
     }
 
@@ -61,7 +57,6 @@ public class UserRegistryInsertView extends AbstractView {
         request.put("surname", surname);
         request.put("address", address);
         request.put("dateBirthday", dateBirthday);
-        request.put("userId",userId);
         request.put("mode",mode);
         request.put("register", "false");
         MainDispatcher.getInstance().callAction("UserRegistry", "doControl", request);

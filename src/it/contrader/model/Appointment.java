@@ -14,22 +14,22 @@ public class Appointment {
     private double cost;
 
     private long user_id;
-    private long medical_booking_id;
+    private long id_ME;
 
-    public Appointment(long id, String date, String hour, double cost, long user_id, long medical_booking_id) {
+    public Appointment(long id, String date, String hour, double cost, long user_id, long id_ME) {
         this.id = id;
         this.date = date;
         this.hour = hour;
         this.cost = cost;
         this.user_id = user_id;
-        this.medical_booking_id = medical_booking_id;
+        this.id_ME = id_ME;
     }
 
-    public Appointment(String date, String hour, double cost, long medical_booking_id) {
+    public Appointment(String date, String hour, double cost, long id_ME) {
         this.date = date;
         this.hour = hour;
         this.cost = cost;
-        this.medical_booking_id = medical_booking_id;
+        this.id_ME = id_ME;
     }
 
     public Appointment() {
@@ -75,12 +75,25 @@ public class Appointment {
         this.user_id = user_id;
     }
 
-    public long getMedical_booking_id() {
-        return medical_booking_id;
+    public long getId_ME() {
+        return id_ME;
     }
 
     public void setMedical_booking_id(long medical_booking_id) {
-        this.medical_booking_id = medical_booking_id;
+        this.id_ME = id_ME;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id_prenotazione=" + id +
+                ", date='" + date + '\'' +
+                ", hour='" + hour + '\'' +
+                ", cost=" + cost +
+                ", user_id=" + user_id +
+                ", id_ME=" + id_ME +
+                '}';
     }
 }
 
