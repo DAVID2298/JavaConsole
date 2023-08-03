@@ -8,6 +8,7 @@ import it.contrader.view.AbstractView;
 public class AnagraficoUpView extends AbstractView {
 
     private Request request;
+    private long id;
     private String name;
     private String surname;
     private String address;
@@ -56,6 +57,7 @@ public class AnagraficoUpView extends AbstractView {
     @Override
     public void submit() {
         request = new Request();
+        request.put("id",id);
         request.put("name", name);
         request.put("surname", surname);
         request.put("address", address);
@@ -64,6 +66,12 @@ public class AnagraficoUpView extends AbstractView {
         request.put("mode",mode);
 
 
+
+
+//        request.put("user",userId);
+        request.put("mode",mode);
+        request.put("register", "false");
+        request.put("userId", userId);
 
 
         MainDispatcher.getInstance().callAction("UserRegistry", "doControl", request);
