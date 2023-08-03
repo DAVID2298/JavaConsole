@@ -24,7 +24,7 @@ public class AppointmentController implements Controller {
         String mode = (String) request.get("mode");
 
         String choice = (String) request.get("choice");
-
+  //aa
         int id;
         String date;
         String hour;
